@@ -70,8 +70,7 @@ services:
       environment:
         BROKER_ID: 1
         ZOO_SERVERS: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
-        ADV_LISTENERS: PLAINTEXT://localhost:9092
-        LISTENERS: PLAINTEXT://0.0.0.0:9092
+        ADV_LISTENERS: PLAINTEXT://kafka1:9092
         TZ: "Asia/Shanghai"
       ports:
         - 9091:9092
@@ -87,8 +86,7 @@ services:
       environment:
         BROKER_ID: 2
         ZOO_SERVERS: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
-        ADV_LISTENERS: PLAINTEXT://localhost:9092
-        LISTENERS: PLAINTEXT://0.0.0.0:9092
+        ADV_LISTENERS: PLAINTEXT://kafka2:9092
         TZ: "Asia/Shanghai"
       ports:
         - 9092:9092
@@ -104,11 +102,36 @@ services:
       environment:
         BROKER_ID: 3
         ZOO_SERVERS: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
-        ADV_LISTENERS: PLAINTEXT://localhost:9092
-        LISTENERS: PLAINTEXT://0.0.0.0:9092
+        ADV_LISTENERS: PLAINTEXT://kafka3:9092
         TZ: "Asia/Shanghai"
       ports:
         - 9093:9092
+
+    rtdservice:
+      image: 'muidea.ai/rtdservice'
+      container_name: 'rtdservice'
+      networks: 
+        - muidea-ai
+      restart: always
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
+      environment:
+        BROKER_LIST: kafka1:9092,kafka2:9092,kafka3:9092
+        TZ: "Asia/Shanghai"
+      ports:
+        - 8010:8010
+
+    hisservice:
+      image: 'muidea.ai/hisservice'
+      container_name: 'hisservice'
+      networks: 
+        - muidea-ai
+      restart: always
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
+      environment:
+        BROKER_LIST: kafka1:9092,kafka2:9092,kafka3:9092
+        TZ: "Asia/Shanghai"
 
 networks:
   muidea-ai:
