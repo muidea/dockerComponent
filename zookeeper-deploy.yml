@@ -1,0 +1,38 @@
+zookeeper1:
+  image: 'docker.io/zookeeper'
+  container_name: 'zookeeper1'
+  net: muidea-ai
+  restart: always
+  volumes:
+    - /etc/localtime:/etc/localtime
+  environment:
+    ZOO_MY_ID: 1
+    ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
+  ports:
+    - 2181:2181
+
+zookeeper2:
+  image: 'docker.io/zookeeper'
+  container_name: 'zookeeper2'
+  net: muidea-ai
+  restart: always
+  volumes:
+    - /etc/localtime:/etc/localtime  
+  environment:
+    ZOO_MY_ID: 2
+    ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
+  ports:
+    - 2182:2181
+
+zookeeper3:
+  image: 'docker.io/zookeeper'
+  container_name: 'zookeeper3'
+  net: muidea-ai
+  restart: always
+  volumes:
+    - /etc/localtime:/etc/localtime  
+  environment:
+    ZOO_MY_ID: 3
+    ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
+  ports:
+    - 2183:2181
