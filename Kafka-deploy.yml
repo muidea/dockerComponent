@@ -45,6 +45,20 @@ services:
       ports:
         - 2183:2181
   
+    zkui:
+      image: 'muidea.ai/zkui'
+      container_name: 'zkui'
+      networks: 
+        - muidea-ai
+      restart: always
+      volumes:
+        - /etc/localtime:/etc/localtime:ro      
+      environment:
+        ZK_SERVER: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+        TZ: "Asia/Shanghai"
+      ports:
+        - 9090:9090
+
     kafka1:
       image: 'muidea.ai/kafka'
       container_name: 'kafka1'
