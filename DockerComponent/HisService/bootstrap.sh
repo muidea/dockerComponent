@@ -1,11 +1,12 @@
-#!bin/sh
+#!/bin/sh
+
 EXTRA_ARGS=$EXTRA_ARGS
-if [ $LISTENERS ]; then
-    EXTRA_ARGS=$EXTRA_ARGS' -Address '$LISTENERS
+if [ $BROKER_LIST ]; then
+    EXTRA_ARGS=$EXTRA_ARGS' -Broker '$BROKER_LIST
 fi
 
-if [ $BROKER_LIST ]; then
-    EXTRA_ARGS=$EXTRA_ARGS' --override -Broker '$BROKER_LIST
+if [ $TOPIC_NAME ]; then
+    EXTRA_ARGS=$EXTRA_ARGS' -Topic '$TOPIC_NAME
 fi
 
 echo "Starting HisService..."

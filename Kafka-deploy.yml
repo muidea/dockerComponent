@@ -131,7 +131,9 @@ services:
         - /etc/localtime:/etc/localtime:ro
       environment:
         BROKER_LIST: kafka1:9092,kafka2:9092,kafka3:9092
+        TOPIC_NAME: rtddata
         TZ: "Asia/Shanghai"
 
 networks:
   muidea-ai:
+ 

@@ -1,4 +1,4 @@
-#!bin/sh
+#!/bin/sh
 
 EXTRA_ARGS=$EXTRA_ARGS
 if [ $LISTENERS ]; then
@@ -6,11 +6,11 @@ if [ $LISTENERS ]; then
 fi
 
 if [ $BROKER_LIST ]; then
-    EXTRA_ARGS=$EXTRA_ARGS' --override -Broker '$BROKER_LIST
+    EXTRA_ARGS=$EXTRA_ARGS' -Broker '$BROKER_LIST
 fi
 
 echo "Starting RtdService..."
 
-exec ldconfig
+ldconfig
 
-exec /var/app/rtdservice $EXTRA_ARGS "$@"
+/var/app/rtdservice $EXTRA_ARGS "$@"
